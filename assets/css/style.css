@@ -1,0 +1,130 @@
+@font-face{
+	font-family: 'TabarraBold';
+	src: url('../fonts/Tabarra_Bold.ttf') format('truetype');
+}
+
+@font-face{
+	font-family: 'Roboto-Slab';
+	src: url('../fonts/RobotoSlab.ttf') format('truetype');
+}
+
+*{
+	box-sizing: border-box;
+	letter-spacing: 0.5px;
+}
+
+body{
+	margin: 0;
+	font-family: 'Roboto-Slab';
+	color: #3E3623;
+	background-image: url(../img/fond1.jpg);
+	background-size: cover;
+	background-position: 50% 50%;
+}
+
+header{
+	background-color: rgba(107, 173, 117, 0.9);
+	padding: 80px 120px;
+}
+
+header p{
+	color: white;
+	text-align: center;
+	font-size: 1.2em;
+	letter-spacing: 1px;
+}
+
+h1{
+	margin: 0;
+	font-family: 'TabarraBold';
+	color: #fff;
+	text-shadow: 0 10px 10px 50px black;
+	text-align: center;
+	font-size: 3.5em;
+	letter-spacing: 5px;
+}
+
+h2{
+	color: white;
+	font-family: 'TabarraBold';
+	font-size: 3em;
+	margin-bottom: 80px;
+	text-transform: uppercase;
+	letter-spacing: 5px;
+}
+
+h3{
+	font-size: 2em;
+}
+
+td.h3{
+	background-color: rgba(214, 59, 44, 0.7);
+	border: none;
+}
+
+h3.statglobales{
+	margin: 15px 0;
+	color: white;
+}
+
+h2, h3{
+	text-align: center;
+}
+
+section{
+	padding: 50px 50px;
+}
+
+section:last-child{
+	background-color: rgba(107, 173, 117, 0.9);
+}
+
+table{
+	border-spacing: 0;
+	margin: 0 auto;
+	width: 500px;
+}
+
+table td, th{
+	padding: 10px 10px;
+	border: 1px solid #D7E9E1;
+}
+
+table th{
+	background-color: rgba(67, 62, 62, 0.97);
+	color: white;
+	border: 1px solid #404040;
+}
+
+table th.stats{
+	background-color: rgba(48, 48, 48, 0.97);
+	color: white;
+	border: 1px solid #404040;
+}
+
+table tr:nth-child(2n){
+	background-color: rgba(255, 255, 255, 0.97);
+}
+
+table tr:nth-child(2n+1){
+	background-color: rgba(234, 249, 246, 0.97);
+}
+
+table td:last-child{
+	text-align: center;
+}
+
+table span.result{
+	font-weight: bold;
+	text-align: center;
+}
+
+table.global{
+	text-align: center;
+	font-size: 0.8em;
+	width: 1200px;
+}
+
+table.global h3{
+	font-size: 3em;
+}
