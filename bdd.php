@@ -48,7 +48,7 @@
         $table_flasher = "CREATE TABLE IF NOT EXISTS flasher(
             id_flash INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
             date_flash DATETIME NOT NULL)";
-        
+
         // $dbco->exec($table_table);
         // echo 'Table "restaurant" bien créée !<br/>';
     }
@@ -87,7 +87,71 @@
         ORDER BY id_client ASC
         LIMIT 0, 30
     ";
-       
+
+    $plat_le_plus_commande = "
+        SELECT nom_plat, COUNT(client.id_plat) AS nbre_plat
+        FROM plat
+        INNER JOIN client ON client.id_plat = plat.id_plat
+        GROUP BY nom_plat
+        ORDER BY nbre_plat DESC
+        LIMIT 1
+    ";
+
+    $plat_le_moins_commande = "
+        SELECT nom_plat, COUNT(client.id_plat) AS nbre_plat
+        FROM plat
+        INNER JOIN client ON client.id_plat = plat.id_plat
+        GROUP BY nom_plat
+        ORDER BY nbre_plat ASC
+        LIMIT 1
+    ";
+
+    //plat le plus commandé en avril
+    $plat_le_plus_commande_avril = "
+        SELECT nom_plat, COUNT(client.id_plat) AS nbre_plat
+        FROM plat
+        INNER JOIN client ON client.id_plat = plat.id_plat
+        INNER JOIN flasher ON id_flash = id_client
+        WHERE date_flash BETWEEN '2021-04-01 12:00:00' AND '2021-04-16 12:30:00'
+        GROUP BY nom_plat
+        ORDER BY nbre_plat DESC
+        LIMIT 1
+    ";
+
+    $nbre_client_total = "
+        SELECT COUNT(id_client) AS nbre_client FROM client
+    ";
+
+    $nbre_table_au_soleil = "
+        SELECT COUNT(id_table) AS nbre_table_au_soleil 
+        FROM table_restaurant
+        WHERE luminosite LIKE 'soleil'
+    ";
+
+    $nbre_table_ombre_exterieur = "
+        SELECT COUNT(id_table) AS nbre_table_ombre_exterieur
+        FROM table_restaurant
+        WHERE luminosite LIKE 'ombre' AND emplacement LIKE 'exterieur'
+    ";
+
+    $nbre_de_clients_par_jour = "
+        SELECT DISTINCT YEAR(date_flash) AS year, MONTH(date_flash) AS month, DAY(date_flash) AS day, COUNT(id_client) AS nbre_client
+        FROM client
+        INNER JOIN flasher ON id_client = id_flash
+        WHERE YEAR(date_flash) = 2021
+        GROUP BY day, month, year
+        ORDER BY month, day ASC
+    ";
+
+    $nbre_de_clients_par_mois = "
+        SELECT DISTINCT YEAR(date_flash) AS annee, MONTH(date_flash) AS  mois, COUNT(id_client) AS nbre_clients
+        FROM client
+        INNER JOIN flasher ON id_client = id_flash
+        WHERE YEAR(date_flash) = 2021
+        GROUP BY mois, annee
+        ORDER BY mois ASC
+    ";
+
     try{
         $dbco = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
         $dbco->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -95,8 +159,16 @@
         $stmt = $dbco->query($nbre_flash_fevrier);
         $stmt2 = $dbco->query($table_max_utilisee_trimestre_Fev_Mars_Avril);
         $stmt3 = $dbco->query($DataGlobal);
-     
-        if($stmt3 === false){
+        $stmt4 = $dbco->query($plat_le_plus_commande);
+        $stmt5 = $dbco->query($plat_le_moins_commande);
+        $stmt6 = $dbco->query($plat_le_plus_commande_avril);
+        $stmt7 = $dbco->query($nbre_client_total);
+        $stmt8 = $dbco->query($nbre_table_au_soleil);
+        $stmt9 = $dbco->query($nbre_table_ombre_exterieur);
+        $stmt10 = $dbco->query($nbre_de_clients_par_jour);
+        $stmt11 = $dbco->query($nbre_de_clients_par_mois);
+
+        if($stmt === false){
         die("Erreur");
         }
       }
