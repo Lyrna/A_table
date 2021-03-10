@@ -131,7 +131,7 @@ table td, th{
 table th{
 	background-color: rgba(67, 62, 62, 0.97);
 	color: white;
-	border: 1px solid #404040;
+	border: 1px solid #2E303D;
 }
 
 table tr:nth-child(2n){
@@ -160,7 +160,7 @@ table:first-child{
 table th.stats{
 	background-color: rgba(48, 48, 48, 0.97);
 	color: white;
-	border: 1px solid #404040;
+	border: 1px solid #2E303D;
 }
 
 td.date{

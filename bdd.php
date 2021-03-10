@@ -1,6 +1,6 @@
 <?php
     $servername = 'localhost';
-    $dbname = 'restaurant';
+    $dbname = 'restaurant2';
     $username = 'root';
     $password = 'Simplon01';
 
@@ -9,7 +9,8 @@
         $dbco = new PDO("mysql:host=$servername", $username, $password);
         $dbco->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
-        $sql = "CREATE DATABASE IF NOT EXISTS restaurant";
+        $sql = "CREATE DATABASE IF NOT EXISTS $dbname";
+        $dbco->exec($sql);
     }
 
     catch(PDOException $e){
@@ -34,7 +35,8 @@
             url VARCHAR(100) NOT NULL)";
        
         $table_client = "CREATE TABLE IF NOT EXISTS client(
-            id_client INT UNSIGNED AUTO_INCREMENT PRIMARY KEY)";
+            id_client INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+            id_plat INT NOT NULL)";
 
         $table_smartphone = "CREATE TABLE IF NOT EXISTS smartphone(
             id_smartphone INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -47,9 +49,15 @@
 
         $table_flasher = "CREATE TABLE IF NOT EXISTS flasher(
             id_flash INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            date_flash DATETIME NOT NULL)";
+            date_flash DATETIME NOT NULL,
+            id_QRCode INT NOT NULL)";
 
-        // $dbco->exec($table_table);
+        $dbco->exec($table_table);
+        $dbco->exec($table_flasher);
+        $dbco->exec($table_plat);
+        $dbco->exec($table_smartphone);
+        $dbco->exec($table_client);
+        $dbco->exec($table_QRCode);
         // echo 'Table "restaurant" bien créée !<br/>';
     }
     
